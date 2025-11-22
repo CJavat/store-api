@@ -9,6 +9,7 @@ interface SeedUserInterface {
   emailVerified: boolean;
   password: string;
   role: validRoles;
+  isActivate?: boolean;
   imageUrl?: string;
 }
 

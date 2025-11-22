@@ -22,13 +22,14 @@ model User {
   id            String   @id @default(uuid())
   firstName     String
   lastName      String
-  email         String
+  email         String   @unique()
   emailVerified Boolean  @default(false)
   password      String
   role          Role     @default(user)
   imageUrl      String?
   createdAt     DateTime @default(now())
   updatedAt     DateTime @default(now())
+  isActive      Boolean  @default(true)
 
   //! Relaciones
 }

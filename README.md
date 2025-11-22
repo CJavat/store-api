@@ -9,7 +9,11 @@
 1. Instalar las dependencias del proyecto con `yarn install`.
 2. Diplicar archivo `.env.template` y renombrarlo a `.env` y configurar las variables de entorno.
 3. Correr la base de datos con `docker composer up -d`
-4. Correr el proyecto. `yarn start:dev`.
+4. Ejecutar el Seed :
+   ```
+   http://localhost:3000/api/seed
+   ```
+5. Correr el proyecto. `yarn start:dev`.
 
 ## Prima ORM [Docs](https://www.prisma.io/docs/getting-started/prisma-orm/quickstart/postgresql)
 

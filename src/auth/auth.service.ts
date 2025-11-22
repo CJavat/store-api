@@ -8,7 +8,7 @@ import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { prisma } from '../lib/prisma';
 
-import { LoginDto, CreateUserDto, UpdateUserDto } from './dto';
+import { LoginDto, CreateUserDto } from './dto';
 import type { JwtPayload } from './interfaces';
 import { User } from 'generated/prisma/client';
 
@@ -41,6 +41,11 @@ export class AuthService {
           role: true,
         },
       });
+
+      return {
+        success: true,
+        message: 'Usuario creado',
+      };
     } catch (error) {
       this.logger.fatal(error);
       throw new InternalServerErrorException(

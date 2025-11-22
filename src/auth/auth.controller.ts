@@ -3,7 +3,7 @@ import { AuthService } from './auth.service';
 import { Auth, GetUser } from './decorators';
 import { User } from 'generated/prisma/client';
 
-import { LoginDto, CreateUserDto, UpdateUserDto } from './dto';
+import { LoginDto, CreateUserDto } from './dto';
 
 @Controller('auth')
 export class AuthController {

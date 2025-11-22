@@ -32,8 +32,4 @@ export class CreateUserDto {
       'The password must have a Uppercase, lowercase letter and a number',
   })
   password: string;
-
-  @IsOptional()
-  @IsString()
-  imageUrl?: string;
 }

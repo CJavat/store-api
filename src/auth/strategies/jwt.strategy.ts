@@ -28,6 +28,11 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     const user = await prisma.user.findUnique({ where: { id } });
     if (!user) throw new UnauthorizedException('Token is invalid.');
 
+    if (!user.isActive)
+      throw new UnauthorizedException(
+        'User is not active, talk with an admin.',
+      );
+
     return user;
   }
 }
