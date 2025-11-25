@@ -1,4 +1,5 @@
 import {
+  HttpException,
   Injectable,
   InternalServerErrorException,
   Logger,
@@ -44,44 +45,69 @@ export class AuthService {
 
       return {
         success: true,
-        message: 'Usuario creado',
+        message: 'User created.',
+        data: {
+          user: userCreated,
+        },
       };
     } catch (error) {
-      this.logger.fatal(error);
-      throw new InternalServerErrorException(
-        'Ocurrió un error al crear la cuenta.',
-      );
+      this.handleErrorException(error);
     }
   }
 
   async login(loginDto: LoginDto) {
-    const { email, password } = loginDto;
+    try {
+      const { email, password } = loginDto;
 
-    const user = await prisma.user.findFirst({
-      where: { email },
-      select: { email: true, password: true, id: true },
-    });
+      const userFounded = await prisma.user.findFirst({
+        where: { email },
+        select: { email: true, password: true, id: true },
+      });
 
-    if (!user) throw new UnauthorizedException('Invalid email.');
+      if (!userFounded) throw new UnauthorizedException('Invalid email.');
 
-    if (!bcrypt.compareSync(password, user.password))
-      throw new UnauthorizedException('Invalid password.');
+      if (!bcrypt.compareSync(password, userFounded.password))
+        throw new UnauthorizedException('Invalid password.');
 
-    return {
-      ...user,
-      token: this.getJwtToken({ id: user.id }),
-    };
+      return {
+        success: true,
+        message: 'Login success.',
+        data: {
+          token: this.getJwtToken({ id: userFounded.id }),
+        },
+      };
+    } catch (error) {
+      this.handleErrorException(error);
+    }
   }
 
   async checkAuthStatus(user: User) {
     return {
-      ...user,
-      token: this.getJwtToken({ id: user.id }),
+      success: true,
+      message: '',
+      data: {
+        ...user,
+        token: this.getJwtToken({ id: user.id }),
+      },
     };
   }
 
   private getJwtToken(payload: JwtPayload) {
     const token = this.jwtService.sign(payload);
     return token;
+  }
+
+  private handleErrorException(error: any) {
+    // Si el error ES una excepción de Nest → relánzala
+    if (error instanceof HttpException) {
+      this.logger.error(error);
+      throw error;
+    }
+
+    // Errores inesperados → manejar normalmente
+    this.logger.fatal(`Ocurrió un error inesperado: ${error}`);
+    throw new InternalServerErrorException(
+      `Ocurrió un error inesperado: ${error}`,
+    );
   }
 }

@@ -7,12 +7,14 @@ import {
   Delete,
   UploadedFile,
   Query,
+  Req,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UpdateUserDto } from './dto/update-user.dto';
 
 import { PaginationDto } from '../common/dto/pagination.dto';
-//TODO: TERMINAR CONTROLADOR.
+import { Auth } from 'src/auth/decorators';
+
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
@@ -27,28 +29,40 @@ export class UsersController {
     return this.usersService.findOneUser(id);
   }
 
-  @Patch('upadte-user/:id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.usersService.updateUser(id, updateUserDto);
+  @Patch('update-user/:id')
+  @Auth()
+  update(
+    @Req() request: Express.Request,
+    @Param('id') id: string,
+    @Body() updateUserDto: UpdateUserDto,
+  ) {
+    request.user;
+    return this.usersService.updateUser(request, id, updateUserDto);
   }
 
   @Patch('update-image-user/:id')
-  updateImage(@UploadedFile() file: Express.Multer.File) {
-    return this.usersService.updateUserImage(file);
+  @Auth()
+  updateImage(
+    @Req() request: Express.Request,
+    @UploadedFile() file: Express.Multer.File,
+  ) {
+    return this.usersService.updateUserImage(request, file);
   }
 
   @Patch('disable-account/:id')
-  disable(@Param('id') id: string) {
-    return this.usersService.disableUser(id);
+  @Auth()
+  disable(@Req() request: Express.Request, @Param('id') id: string) {
+    return this.usersService.disableUser(request, id);
   }
 
-  @Patch('enable-account/:id')
-  enable(@Param('id') id: string) {
-    return this.usersService.enableUser(id);
+  @Patch('enable-account/:token')
+  enable(@Param('token') token: string) {
+    return this.usersService.enableUser(token);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.usersService.deleteUser(id);
+  @Delete('remove-user/:id')
+  @Auth()
+  remove(@Req() request: Express.Request, @Param('id') id: string) {
+    return this.usersService.deleteUser(request, id);
   }
 }
