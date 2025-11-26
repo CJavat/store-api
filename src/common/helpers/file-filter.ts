@@ -1,12 +1,4 @@
-import { Request } from 'express';
-
-interface FileFilter {
-  req: Request;
-  file: Express.Multer.File;
-  cb: Function;
-}
-
-export const fileFilter = ({ req, file, cb }: FileFilter) => {
+export const fileFilter = (req, file, cb) => {
   if (!file) return cb(new Error('file is empty'), false);
 
   const fileExtension = file.mimetype.split('/').at(1);

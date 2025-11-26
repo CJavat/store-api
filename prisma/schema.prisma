@@ -26,10 +26,20 @@ model User {
   emailVerified Boolean  @default(false)
   password      String
   role          Role     @default(user)
-  imageUrl      String?
   createdAt     DateTime @default(now())
   updatedAt     DateTime @default(now())
   isActive      Boolean  @default(true)
 
   //! Relaciones
+  userImage UserImage?
+}
+
+model UserImage {
+  id       String @id @default(uuid())
+  imageUrl String
+  publicId String
+
+  //! Relaciones
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id])
 }

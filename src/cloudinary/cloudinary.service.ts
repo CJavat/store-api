@@ -10,16 +10,29 @@ export class CloudinaryService {
   async uploadImage(
     file: Express.Multer.File,
     folder: Folder,
+    oldImagePublicId?: string,
   ): Promise<UploadApiResponse | undefined> {
-    //TODO: Agregar nuevo parámetro para saber si el usuario está actualizando foto o es nueva y así poder borrar las fotos viejas.
-    return new Promise((resolve, reject) => {
-      this.cloudinary.uploader
-        .upload_stream({ folder: `store-api/${folder}` }, (error, result) => {
-          if (error) return reject(error);
+    const result: Promise<UploadApiResponse | undefined> = new Promise(
+      (resolve, reject) => {
+        this.cloudinary.uploader
+          .upload_stream({ folder: `store-api/${folder}` }, (error, result) => {
+            if (error) return reject(error);
 
-          resolve(result);
-        })
-        .end(file.buffer);
-    });
+            resolve(result);
+          })
+          .end(file.buffer);
+      },
+    );
+
+    // Eliminar imagen vieja de Cloudinary
+    if (oldImagePublicId) {
+      try {
+        await this.cloudinary.uploader.destroy(oldImagePublicId);
+      } catch (error) {
+        console.warn('No se pudo borrar la imagen anterior.', error);
+      }
+    }
+
+    return result;
   }
 }

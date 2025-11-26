@@ -8,12 +8,15 @@ import {
   UploadedFile,
   Query,
   Req,
+  UseInterceptors,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UpdateUserDto } from './dto/update-user.dto';
 
 import { PaginationDto } from '../common/dto/pagination.dto';
 import { Auth } from 'src/auth/decorators';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { fileFilter } from 'src/common/helpers/file-filter';
 
 @Controller('users')
 export class UsersController {
@@ -42,6 +45,11 @@ export class UsersController {
 
   @Patch('update-image-user/:id')
   @Auth()
+  @UseInterceptors(
+    FileInterceptor('file', {
+      fileFilter: fileFilter,
+    }),
+  )
   updateImage(
     @Req() request: Express.Request,
     @UploadedFile() file: Express.Multer.File,

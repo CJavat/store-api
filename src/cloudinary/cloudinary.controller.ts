@@ -8,10 +8,10 @@ import {
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { CloudinaryService } from './cloudinary.service';
-
-import { fileFilter } from './helpers/file-filter';
-import { Folder } from './interfaces/folder.type';
 import { FolderValidationPipe } from './pipes/folder-validation.pipe';
+
+import { fileFilter } from '../common/helpers/file-filter';
+import { Folder } from './interfaces/folder.type';
 
 @Controller('cloudinary')
 export class CloudinaryController {
@@ -26,9 +26,14 @@ export class CloudinaryController {
   async uploadImageFile(
     @UploadedFile() file: Express.Multer.File,
     @Body('folderName', FolderValidationPipe) folderName: Folder,
+    @Body('publicId') oldImagePublicId: string,
   ) {
-    //TODO: Actualizar que se eliminen las fotos viejas cuando el usuario actualiza su foto.
-    const result = await this.cloudinaryService.uploadImage(file, folderName);
+    const result = await this.cloudinaryService.uploadImage(
+      file,
+      folderName,
+      oldImagePublicId,
+    );
+
     if (!result)
       throw new InternalServerErrorException(
         'Ocurrió un error al subir tu imagen',

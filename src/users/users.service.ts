@@ -13,10 +13,14 @@ import { PaginationDto } from 'src/common/dto/pagination.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from 'generated/prisma/client';
 import { JwtService } from '@nestjs/jwt';
+import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
 
 @Injectable()
 export class UsersService {
-  constructor(private jwtService: JwtService) {}
+  constructor(
+    private jwtService: JwtService,
+    private cloudinaryService: CloudinaryService,
+  ) {}
 
   private logger = new Logger();
 
@@ -34,7 +38,6 @@ export class UsersService {
           email: true,
           role: true,
           isActive: true,
-          imageUrl: true,
           createdAt: true,
           updatedAt: true,
         },
@@ -105,12 +108,53 @@ export class UsersService {
 
   async updateUserImage(request: Express.Request, file: Express.Multer.File) {
     try {
-      //TODO: SOLO QUEDA POR TERMINAR.
-      //! Que el usuario exista.
-      //! Que solo el usuario logeado pueda actualizar la foto (ni el admin puede)
-      //! Que el usuario loegado no pueda actualizar foto de otro usuario.
-      //! Que la foto sea valida.
-      //! Si ya tiene una foto asignada en Cloudinary, eliminarla de ahí y agregar la nueva (Hacer lo mismo en la DB).
+      const user = request.user as User;
+
+      const userExists = await prisma.user.findUnique({
+        where: { id: user.id },
+        select: {
+          id: true,
+          userImage: true,
+        },
+      });
+      if (!userExists) throw new NotFoundException("User doesn't exist.");
+
+      // Subir foto en Cloudinary
+      const cloudinaryResponse = await this.cloudinaryService.uploadImage(
+        file,
+        'users',
+        userExists.userImage?.publicId ?? undefined,
+      );
+
+      if (!cloudinaryResponse)
+        throw new InternalServerErrorException(
+          'An error occurred while updating the image.',
+        );
+
+      // Si el usuario no tiene foto, se agrega nuevo registro
+      if (!userExists.userImage?.id) {
+        await prisma.userImage.create({
+          data: {
+            imageUrl: cloudinaryResponse.url,
+            publicId: cloudinaryResponse.public_id,
+            userId: user.id,
+          },
+        });
+      } else {
+        // Si tiene foto, actualiza el registro.
+        await prisma.userImage.update({
+          where: { id: userExists.userImage.id },
+          data: {
+            imageUrl: cloudinaryResponse.url,
+            publicId: cloudinaryResponse.public_id,
+          },
+        });
+      }
+
+      return {
+        success: true,
+        message: 'User image was updated successfully.',
+      };
     } catch (error) {
       this.handleErrorException(error);
     }
