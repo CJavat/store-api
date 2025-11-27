@@ -10,6 +10,10 @@ export class SeedService {
 
     await this.inserUsers();
 
+    await this.insertCategories();
+
+    await this.insertProducts();
+
     return {
       success: true,
       message: 'Seed executed.',
@@ -17,6 +21,8 @@ export class SeedService {
   }
 
   private async deleteTables() {
+    await prisma.product.deleteMany();
+    await prisma.category.deleteMany();
     await prisma.user.deleteMany();
 
     return;
@@ -29,5 +35,21 @@ export class SeedService {
     });
 
     return;
+  }
+
+  private async insertCategories() {
+    const seedCategories = initialData.categories;
+    await prisma.category.createMany({
+      data: seedCategories,
+    });
+
+    return;
+  }
+
+  private async insertProducts() {
+    const seedProducts = initialData.products;
+    await prisma.product.createMany({
+      data: seedProducts,
+    });
   }
 }

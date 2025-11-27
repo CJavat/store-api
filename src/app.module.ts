@@ -5,9 +5,10 @@ import { SeedModule } from './seed/seed.module';
 import { UsersModule } from './users/users.module';
 import { CloudinaryModule } from './cloudinary/cloudinary.module';
 import { CommonModule } from './common/common.module';
+import { CategoriesModule } from './categories/categories.module';
 
 @Module({
-  imports: [ConfigModule.forRoot(), AuthModule, SeedModule, UsersModule, CloudinaryModule, CommonModule],
+  imports: [ConfigModule.forRoot(), AuthModule, SeedModule, UsersModule, CloudinaryModule, CommonModule, CategoriesModule],
   controllers: [],
   providers: [],
 })

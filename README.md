@@ -32,14 +32,14 @@
 
 ## Cloudinary
 
--
+Obtener las _API Keys_ [aquí.](https://console.cloudinary.com/app/c-2e56bf20620320ab3c22dd6599de67/home/dashboard) y después agregarlos a las variables de entorno para poder subir y actualizar imágenes.
 
 ## Estrucutra Del Pryecto
 
 ```
 /src
- ├── auth/
- ├── users/
+ ├── auth/          (Terminado)
+ ├── users/         (Terminado)
  ├── customers/
  ├── products/
  ├── categories/
