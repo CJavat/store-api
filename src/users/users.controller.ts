@@ -17,6 +17,7 @@ import { PaginationDto } from '../common/dto/pagination.dto';
 import { Auth } from 'src/auth/decorators';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { fileFilter } from 'src/common/helpers/file-filter';
+import { UpdatePasswordDto } from './dto/update-password.dto';
 
 @Controller('users')
 export class UsersController {
@@ -39,8 +40,16 @@ export class UsersController {
     @Param('id') id: string,
     @Body() updateUserDto: UpdateUserDto,
   ) {
-    request.user;
     return this.usersService.updateUser(request, id, updateUserDto);
+  }
+
+  @Patch('update-password')
+  @Auth()
+  updatePassword(
+    @Req() request: Express.Request,
+    @Body() updatePasswordDto: UpdatePasswordDto,
+  ) {
+    return this.usersService.updatePassword(request, updatePasswordDto);
   }
 
   @Patch('update-image-user/:id')

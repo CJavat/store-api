@@ -7,13 +7,15 @@ import {
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
+import * as bcrypt from 'bcrypt';
 import { prisma } from 'src/lib/prisma';
-import { PaginationDto } from 'src/common/dto/pagination.dto';
+import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
 
 import { UpdateUserDto } from './dto/update-user.dto';
+import { PaginationDto } from 'src/common/dto/pagination.dto';
+import { UpdatePasswordDto } from './dto/update-password.dto';
 import { User } from 'generated/prisma/client';
-import { JwtService } from '@nestjs/jwt';
-import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
 
 @Injectable()
 export class UsersService {
@@ -112,6 +114,28 @@ export class UsersService {
       return {
         success: true,
         message: 'User was updated successfully.',
+      };
+    } catch (error) {
+      this.handleErrorException(error);
+    }
+  }
+
+  async updatePassword(
+    request: Express.Request,
+    updatePasswordDto: UpdatePasswordDto,
+  ) {
+    const user = request.user as User;
+    const passwordEncrypted = bcrypt.hashSync(updatePasswordDto.password, 10);
+
+    try {
+      await prisma.user.update({
+        where: { id: user.id },
+        data: { password: passwordEncrypted },
+      });
+
+      return {
+        success: true,
+        message: 'User password was updated successfully.',
       };
     } catch (error) {
       this.handleErrorException(error);

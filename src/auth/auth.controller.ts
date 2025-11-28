@@ -25,6 +25,7 @@ export class AuthController {
     this.authService.checkAuthStatus(user);
   }
 
-  //TODO: Cambiar contraseña PUT
+  //! Instalar Nodemailer para los siguientes enpoints
+  //TODO: Olvidé mi contraseña (enviar correo con link, poner como parametro link de frontend, y en el link enviar un token)
   //TODO: Verificar email GET
 }
