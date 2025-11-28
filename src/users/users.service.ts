@@ -17,12 +17,12 @@ import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
 
 @Injectable()
 export class UsersService {
+  private logger = new Logger();
+
   constructor(
     private jwtService: JwtService,
     private cloudinaryService: CloudinaryService,
   ) {}
-
-  private logger = new Logger();
 
   async findAllUsers(paginationDto: PaginationDto) {
     const { take = 10, skip = 0 } = paginationDto;
@@ -86,7 +86,12 @@ export class UsersService {
   ) {
     try {
       const user = request.user as User;
-      console.log({ user });
+
+      if (updateUserDto.password)
+        throw new BadRequestException(
+          `Password cannot be updated in this endpoint.`,
+        );
+
       const userFounded = await prisma.user.findUnique({ where: { id } });
       if (!userFounded) throw new NotFoundException('User not found.');
 
@@ -95,7 +100,14 @@ export class UsersService {
           "You don't have permission to update a user that isn't yours.",
         );
 
-      await prisma.user.update({ where: { id }, data: updateUserDto });
+      const updatedAt = new Date();
+      await prisma.user.update({
+        where: { id },
+        data: {
+          updatedAt,
+          ...updateUserDto,
+        },
+      });
 
       return {
         success: true,

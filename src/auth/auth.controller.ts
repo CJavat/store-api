@@ -24,4 +24,7 @@ export class AuthController {
   checkAuthStatus(@GetUser() user: User) {
     this.authService.checkAuthStatus(user);
   }
+
+  //TODO: Cambiar contraseña PUT
+  //TODO: Verificar email GET
 }

@@ -53,7 +53,7 @@ model Category {
 }
 
 model Product {
-  id          String  @id @default(uuid())
+  id          String   @id @default(uuid())
   name        String
   description String?
   sku         String
@@ -61,6 +61,8 @@ model Product {
   slug        String
   type        String
   price       Float
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now())
 
   //! Relaciones
   categoryId String
