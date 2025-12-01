@@ -59,21 +59,21 @@ export class AuthService {
     try {
       const { email, password } = loginDto;
 
-      const userFounded = await prisma.user.findFirst({
+      const userFound = await prisma.user.findFirst({
         where: { email },
         select: { email: true, password: true, id: true },
       });
 
-      if (!userFounded) throw new UnauthorizedException('Invalid email.');
+      if (!userFound) throw new UnauthorizedException('Invalid email.');
 
-      if (!bcrypt.compareSync(password, userFounded.password))
+      if (!bcrypt.compareSync(password, userFound.password))
         throw new UnauthorizedException('Invalid password.');
 
       return {
         success: true,
         message: 'Login success.',
         data: {
-          token: this.getJwtToken({ id: userFounded.id }),
+          token: this.getJwtToken({ id: userFound.id }),
         },
       };
     } catch (error) {

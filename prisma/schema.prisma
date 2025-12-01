@@ -18,6 +18,20 @@ enum Role {
   user
 }
 
+enum DiscountType {
+  PERCENT
+  FIXED
+}
+
+model Country {
+  id   String @id
+  name String
+
+  //! Relaciones
+  UserAddress UserAddress[]
+  // OrderAddress OrderAddress[]
+}
+
 model User {
   id            String   @id @default(uuid())
   firstName     String
@@ -31,7 +45,12 @@ model User {
   isActive      Boolean  @default(true)
 
   //! Relaciones
-  userImage UserImage?
+  userImage       UserImage?
+  UserAddress     UserAddress?
+  couponUsages    CouponUsage[]
+  assignedCoupons Coupon[]      @relation("AssignedCoupons")
+  // sales      Sale[]  //TODO: Ventas que haya hecho el cliente.
+  // order      Order[] //TODO: Ordenes que haya hecho el cliente, tal vez es lo mismo que ventas.
 }
 
 model UserImage {
@@ -50,6 +69,7 @@ model Category {
 
   //! Relaciones
   products Product[]
+  coupons  Coupon[]
 }
 
 model Product {
@@ -69,6 +89,8 @@ model Product {
   category   Category @relation(fields: [categoryId], references: [id])
 
   productImage ProductImage?
+  coupons      Coupon[]
+  //TODO: OrderItem
 }
 
 model ProductImage {
@@ -80,3 +102,70 @@ model ProductImage {
   productId String  @unique
   product   Product @relation(fields: [productId], references: [id])
 }
+
+model UserAddress {
+  id         String  @id @default(uuid())
+  firstName  String
+  lastName   String
+  address    String
+  address2   String?
+  postalCode String
+  city       String
+  phone      String
+
+  //! Relaciones
+  country   Country @relation(fields: [countryId], references: [id])
+  countryId String
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String @unique
+}
+
+model Coupon {
+  id          String  @id @default(uuid())
+  code        String  @unique
+  description String?
+
+  // Tipo y valor del descuento
+  discountType  DiscountType
+  discountValue Float
+  maxDiscount   Float?
+
+  // Reglas
+  minimumPurchase  Float? @default(0)
+  usageLimit       Int? // null = ilimitado
+  usedCount        Int    @default(0)
+  perCustomerLimit Int? // null = ilimitado
+
+  // Fechas de vigencia
+  startDate DateTime
+  endDate   DateTime
+
+  isActive Boolean @default(true) //TODO: Desactivar cuando la fecha del cupón ya haya llegado.
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  //! Relaciones
+  assignedUsers        User[]        @relation("AssignedCoupons")
+  applicableProducts   Product[]
+  applicableCategories Category[]
+  couponUsages         CouponUsage[]
+
+  @@map("Coupons")
+}
+
+model CouponUsage {
+  id       String @id @default(uuid())
+  couponId String
+  userId   String @map("customerId")
+
+  usedAt DateTime @default(now())
+
+  coupon Coupon @relation(fields: [couponId], references: [id])
+  user   User   @relation(fields: [userId], references: [id])
+}
+
+//TODO: model OrderAddress {}
+
+//? Basarme en este modelo: https://github.com/CJavat/curso-nextjs-fh/blob/main/04-teslo-shop/prisma/schema.prisma

@@ -2,11 +2,14 @@ import { Injectable, NotImplementedException } from '@nestjs/common';
 import { prisma } from 'src/lib/prisma';
 
 import { initialData } from './data/seed-data';
+import { countries } from './data/seed-countries';
 
 @Injectable()
 export class SeedService {
   async runSeed() {
     await this.deleteTables();
+
+    await this.insertCountries();
 
     await this.inserUsers();
 
@@ -21,9 +24,23 @@ export class SeedService {
   }
 
   private async deleteTables() {
+    await prisma.couponUsage.deleteMany();
+    await prisma.coupon.deleteMany();
+
+    await prisma.productImage.deleteMany();
     await prisma.product.deleteMany();
     await prisma.category.deleteMany();
+
+    await prisma.userAddress.deleteMany();
+    await prisma.country.deleteMany();
+    await prisma.userImage.deleteMany();
     await prisma.user.deleteMany();
+
+    return;
+  }
+
+  private async insertCountries() {
+    await prisma.country.createMany({ data: countries });
 
     return;
   }

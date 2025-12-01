@@ -30,28 +30,32 @@
   npx prisma migrate dev --name migration_name
   ```
 
-## Cloudinary
+## [Cloudinary](https://cloudinary.com/)
 
 Obtener las _API Keys_ [aquí.](https://console.cloudinary.com/app/c-2e56bf20620320ab3c22dd6599de67/home/dashboard) y después agregarlos a las variables de entorno para poder subir y actualizar imágenes.
+
+## [Nodemailer](https://nodemailer.com/)
+
+    Falta implementar envío de correos.
 
 ## Estrucutra Del Pryecto
 
 ```
 /src
- ├── auth/          (Terminado)
- ├── users/         (Terminado)
- ├── customers/
- ├── products/
- ├── categories/
- ├── inventory/
- ├── sales/
- ├── orders/
- ├── cash-register/
- ├── suppliers/
- ├── purchase-orders/
- ├── reports/
- ├── common/
- ├── prisma/
- └── app.module.ts
+ ├── auth/            | (Terminado)
+ ├── users/           | (Terminado)
+ ├── products/        | (Terminado)
+ ├── categories/      | (Terminado)
+ ├── inventory/       | 1
+ ├── sales/           | 2
+ ├── orders/          | 3
+ ├── cash-register/   | 5
+ ├── suppliers/       |
+ ├── purchase-orders/ | 4
+ ├── reports/         | 6
+ |-- coupons/         | (Terminado)
+ ├── common/          | (Terminado)
+ ├── prisma/          | (Terminado)
+ └── app.module.ts    | (Terminado)
 
 ```

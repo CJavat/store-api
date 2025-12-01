@@ -7,9 +7,10 @@ import { CloudinaryModule } from './cloudinary/cloudinary.module';
 import { CommonModule } from './common/common.module';
 import { CategoriesModule } from './categories/categories.module';
 import { ProductsModule } from './products/products.module';
+import { CouponsModule } from './coupons/coupons.module';
 
 @Module({
-  imports: [ConfigModule.forRoot(), AuthModule, SeedModule, UsersModule, CloudinaryModule, CommonModule, CategoriesModule, ProductsModule],
+  imports: [ConfigModule.forRoot(), AuthModule, SeedModule, UsersModule, CloudinaryModule, CommonModule, CategoriesModule, ProductsModule, CouponsModule],
   controllers: [],
   providers: [],
 })

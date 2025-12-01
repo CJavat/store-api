@@ -100,10 +100,10 @@ export class CategoriesService {
     try {
       if (!id) throw new BadRequestException('El id es obligatorio.');
 
-      const categoryFounded = await prisma.category.findUnique({
+      const categoryFound = await prisma.category.findUnique({
         where: { id },
       });
-      if (!categoryFounded)
+      if (!categoryFound)
         throw new NotFoundException(
           `The category with id ${id} does not exist.`,
         );

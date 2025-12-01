@@ -51,7 +51,7 @@ export class UsersService {
 
       return {
         success: true,
-        message: 'Users founded.',
+        message: 'Users found.',
         data: {
           users,
           totalUsers,
@@ -66,14 +66,14 @@ export class UsersService {
 
   async findOneUser(id: string) {
     try {
-      const userFounded = await prisma.user.findUnique({ where: { id } });
-      if (!userFounded) throw new NotFoundException('User not found.');
+      const userFound = await prisma.user.findUnique({ where: { id } });
+      if (!userFound) throw new NotFoundException('User not found.');
 
       return {
         success: true,
         message: 'User found.',
         data: {
-          user: userFounded,
+          user: userFound,
         },
       };
     } catch (error) {
@@ -94,8 +94,8 @@ export class UsersService {
           `Password cannot be updated in this endpoint.`,
         );
 
-      const userFounded = await prisma.user.findUnique({ where: { id } });
-      if (!userFounded) throw new NotFoundException('User not found.');
+      const userFound = await prisma.user.findUnique({ where: { id } });
+      if (!userFound) throw new NotFoundException('User not found.');
 
       if (user.role !== 'admin' && user.id !== id)
         throw new UnauthorizedException(
@@ -200,8 +200,8 @@ export class UsersService {
     try {
       const user: User = request.user as User;
 
-      const userFounded = await prisma.user.findUnique({ where: { id } });
-      if (!userFounded) throw new NotFoundException('User not founded.');
+      const userFound = await prisma.user.findUnique({ where: { id } });
+      if (!userFound) throw new NotFoundException('User not found.');
       if (user.role !== 'admin' && user.id !== id)
         throw new UnauthorizedException(
           "You don't have permission to disable a user that isn't yours.",
@@ -229,10 +229,10 @@ export class UsersService {
 
       const { id } = this.jwtService.decode(token);
 
-      const userFounded = await prisma.user.findUnique({ where: { id } });
-      if (!userFounded) throw new NotFoundException('User not founded.');
+      const userFound = await prisma.user.findUnique({ where: { id } });
+      if (!userFound) throw new NotFoundException('User not found.');
 
-      if (userFounded.isActive)
+      if (userFound.isActive)
         throw new BadRequestException('User is already activated.');
 
       await prisma.user.update({
@@ -255,10 +255,10 @@ export class UsersService {
     try {
       const user: User = request.user! as User;
 
-      const userFounded = await prisma.user.findUnique({ where: { id } });
-      if (!userFounded) throw new NotFoundException("User doesn't exist.");
+      const userFound = await prisma.user.findUnique({ where: { id } });
+      if (!userFound) throw new NotFoundException("User doesn't exist.");
 
-      if (!userFounded.isActive)
+      if (!userFound.isActive)
         throw new NotFoundException("User isn't active.");
 
       if (user.role !== 'admin' && user.id !== id)
