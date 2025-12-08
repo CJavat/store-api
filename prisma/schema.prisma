@@ -72,6 +72,24 @@ model Category {
   coupons  Coupon[]
 }
 
+model Supplier {
+  id       String  @id @default(uuid())
+  name     String
+  email    String? @unique
+  phone    String?
+  address  String?
+  city     String?
+  country  String?
+  isActive Boolean @default(true)
+
+  // Timestamps
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  //! Relaciones
+  products Product[]
+}
+
 model Product {
   id          String   @id @default(uuid())
   name        String
@@ -87,6 +105,9 @@ model Product {
   //! Relaciones
   categoryId String
   category   Category @relation(fields: [categoryId], references: [id])
+
+  supplierId String
+  supplier   Supplier @relation(fields: [supplierId], references: [id])
 
   productImage ProductImage?
   coupons      Coupon[]

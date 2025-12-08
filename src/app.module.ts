@@ -8,9 +8,10 @@ import { CommonModule } from './common/common.module';
 import { CategoriesModule } from './categories/categories.module';
 import { ProductsModule } from './products/products.module';
 import { CouponsModule } from './coupons/coupons.module';
+import { SuppliersModule } from './suppliers/suppliers.module';
 
 @Module({
-  imports: [ConfigModule.forRoot(), AuthModule, SeedModule, UsersModule, CloudinaryModule, CommonModule, CategoriesModule, ProductsModule, CouponsModule],
+  imports: [ConfigModule.forRoot(), AuthModule, SeedModule, UsersModule, CloudinaryModule, CommonModule, CategoriesModule, ProductsModule, CouponsModule, SuppliersModule],
   controllers: [],
   providers: [],
 })

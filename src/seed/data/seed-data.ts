@@ -28,11 +28,18 @@ interface SeedProductInterface {
   type: string;
   price: number;
   categoryId: string;
+  supplierId: string;
+}
+
+interface SeedSupplierInterface {
+  id: string;
+  name: string;
 }
 
 interface SeedData {
   users: SeedUserInterface[];
   categories: SeedCategoryInterface[];
+  suppliers: SeedSupplierInterface[];
   products: SeedProductInterface[];
   //TODO: Terminar de expandirlo...
 }
@@ -79,6 +86,49 @@ export const initialData: SeedData = {
     { id: '77da7e8a-6e38-42b7-b508-f5fcb46c5979', name: 'Farmacia Básica' },
     { id: '619ee39e-a656-4c67-8dc5-fa8becbd7dd6', name: 'Hogar' },
   ],
+  suppliers: [
+    { id: '8f726727-cc2a-42c6-8fc5-29de7897b8d7', name: 'Coca-Cola FEMSA' },
+    { id: '06979974-2beb-4d74-9bca-8790ec83f9fe', name: 'Sabritas / Pepsico' },
+    { id: '6b6c63b1-969b-4bc8-813f-b9099959ef36', name: 'Grupo Lala' },
+    { id: '54a22d87-71e6-4a26-a23c-f2a53fc3aa35', name: 'Bimbo' },
+    { id: '3214c3e0-14da-4c8f-bea9-e0071cc34baf', name: 'Verde Valle' },
+    {
+      id: '6af4075a-cbf7-460d-8bf2-8de1e43deebc',
+      name: 'Fabuloso / Colgate-Palmolive',
+    },
+    { id: '6d26c614-5cf6-46a1-9175-cd74cb43199e', name: 'Jabón Zote' },
+    { id: '0315ff9b-0b90-4802-a554-7002e41ed6e0', name: 'Alfa (cárnicos)' },
+    { id: 'aeff4dda-e9ad-498e-ae05-626ca7198e60', name: 'Ricolino' },
+    {
+      id: '951eb56e-e061-4181-b95e-80babf918e2c',
+      name: 'Grupo Modelo / AB InBev',
+    },
+    { id: '8c2c2cc6-0b98-4fbe-a5d4-09d5e48aacd1', name: 'Hielos Gelid' },
+    { id: '35b89291-9c08-4f70-a0e7-80fac3c0d366', name: 'Colgate' },
+    { id: 'd976c45e-febb-4245-953a-5b9bd7756132', name: 'Unilever' },
+    { id: '493138f2-b02d-4fd1-9c07-b50cda8080a1', name: 'Café Legal' },
+    { id: '8bdd7896-8af1-4664-8e05-f543ba014d5c', name: 'Nestlé' },
+    { id: 'd121efc4-7b61-4121-a9ab-072a60db7e3c', name: 'Dog Chow / Purina' },
+    { id: '98a45426-d0d6-497e-bc54-9821c9c4ada6', name: 'Whiskas / Mars' },
+    { id: 'bb77028d-eefb-44c2-b82b-b18a5322c70c', name: 'Atún Dolores' },
+    { id: 'ea29521c-fc2a-4cda-976c-bd992164e605', name: 'La Costeña' },
+    { id: 'fd18151d-d921-498d-8304-6c7cb8ddba9d', name: 'Granos Selectos' },
+    { id: 'b0b0dbde-a821-4e3b-8a74-0f8333792a04', name: 'Barcel / Pepsico' },
+    {
+      id: '04805a3c-42c6-4a89-8531-ff8b09c71288',
+      name: 'Salsa Tamazula S.A. de C.V.',
+    },
+    { id: '30f267f4-50fc-415a-9017-4cb73656b026', name: 'Maggi 100ml' },
+    { id: '3e48e16a-eb76-4b42-b045-2dc7078839a6', name: 'McCormick México' },
+    { id: 'cb82cd3f-3dcd-4ca8-bdc6-f5874b77b46f', name: 'Genomma Lab' },
+    { id: 'ff42e59a-a34d-4964-a432-65bb7e785ab4', name: 'Bayer México' },
+    { id: 'ea148b0a-c0bf-4bdf-992b-99987597d987', name: 'BIC México' },
+    { id: '88fb7626-234a-44c2-a389-3507a10314c0', name: 'Tecnolite' },
+    {
+      id: '920385cb-8d45-426f-91b0-7cba650fb1ba',
+      name: 'Medical Pro Supplies',
+    },
+  ],
   products: [
     {
       id: '202b5adc-c1c1-4a34-bb92-28746a8efbe3',
@@ -90,6 +140,7 @@ export const initialData: SeedData = {
       type: 'bebida',
       price: 19,
       categoryId: '53377691-c534-4bb4-a988-d75ca454d978',
+      supplierId: '8f726727-cc2a-42c6-8fc5-29de7897b8d7',
     },
     {
       id: '0b577ee6-86a7-43ef-8cf0-a472bc520417',
@@ -101,6 +152,7 @@ export const initialData: SeedData = {
       type: 'bebida',
       price: 18,
       categoryId: '53377691-c534-4bb4-a988-d75ca454d978',
+      supplierId: '8f726727-cc2a-42c6-8fc5-29de7897b8d7',
     },
     {
       id: '8dfd43cb-4671-4847-9ce2-701f613a3c46',
@@ -112,6 +164,7 @@ export const initialData: SeedData = {
       type: 'bebida',
       price: 14,
       categoryId: '53377691-c534-4bb4-a988-d75ca454d978',
+      supplierId: '8f726727-cc2a-42c6-8fc5-29de7897b8d7',
     },
     {
       id: '152a467a-9d20-4a9f-8648-1ec7db26c8f4',
@@ -123,6 +176,7 @@ export const initialData: SeedData = {
       type: 'snack',
       price: 18,
       categoryId: '2f7d78bf-d982-4bb8-87d4-6384138ab08c',
+      supplierId: '06979974-2beb-4d74-9bca-8790ec83f9fe',
     },
     {
       id: 'a511b8f5-843d-4485-8ea9-9956209d983c',
@@ -134,6 +188,7 @@ export const initialData: SeedData = {
       type: 'snack',
       price: 12,
       categoryId: '2f7d78bf-d982-4bb8-87d4-6384138ab08c',
+      supplierId: '06979974-2beb-4d74-9bca-8790ec83f9fe',
     },
     {
       id: '77e5b2a8-7aaf-4286-88fb-fc78e2d39ab5',
@@ -145,6 +200,7 @@ export const initialData: SeedData = {
       type: 'lacteo',
       price: 25,
       categoryId: '32c6cec4-4686-4d7a-9dc8-205c92eb3ad6',
+      supplierId: '6b6c63b1-969b-4bc8-813f-b9099959ef36',
     },
     {
       id: 'ca4989ea-1667-4e1a-9620-07d3bb172d27',
@@ -156,6 +212,7 @@ export const initialData: SeedData = {
       type: 'lacteo',
       price: 16,
       categoryId: '32c6cec4-4686-4d7a-9dc8-205c92eb3ad6',
+      supplierId: '6b6c63b1-969b-4bc8-813f-b9099959ef36',
     },
     {
       id: '355aeaca-c914-4337-9d64-54c28e998d6e',
@@ -167,6 +224,7 @@ export const initialData: SeedData = {
       type: 'pan',
       price: 39,
       categoryId: 'db2d79e5-7855-4a31-be9f-bd4aa2d9a7f1',
+      supplierId: '54a22d87-71e6-4a26-a23c-f2a53fc3aa35',
     },
     {
       id: '1323e83b-65d2-4d27-ab46-cd8a7be76a6f',
@@ -178,6 +236,7 @@ export const initialData: SeedData = {
       type: 'pan',
       price: 3,
       categoryId: 'db2d79e5-7855-4a31-be9f-bd4aa2d9a7f1',
+      supplierId: '54a22d87-71e6-4a26-a23c-f2a53fc3aa35',
     },
     {
       id: '4069e6de-7416-4f7a-a637-b114677e3087',
@@ -189,6 +248,7 @@ export const initialData: SeedData = {
       type: 'abarrotes',
       price: 28,
       categoryId: '777f5ef6-6a0a-43d7-8646-caacc7a89560',
+      supplierId: '3214c3e0-14da-4c8f-bea9-e0071cc34baf',
     },
     {
       id: '34529902-edbc-4cdc-a5e2-07912ca5cc09',
@@ -200,6 +260,7 @@ export const initialData: SeedData = {
       type: 'abarrotes',
       price: 35,
       categoryId: '777f5ef6-6a0a-43d7-8646-caacc7a89560',
+      supplierId: '3214c3e0-14da-4c8f-bea9-e0071cc34baf',
     },
     {
       id: 'c0af0c88-39d9-4d6b-9e14-6ab7c10c3386',
@@ -211,6 +272,7 @@ export const initialData: SeedData = {
       type: 'limpieza',
       price: 29,
       categoryId: 'fd6cdc40-58dc-41bc-b6a8-12e20501c941',
+      supplierId: '6af4075a-cbf7-460d-8bf2-8de1e43deebc',
     },
     {
       id: 'a78c496c-7007-4ffd-ac3b-1ca0651ac9ac',
@@ -222,6 +284,7 @@ export const initialData: SeedData = {
       type: 'limpieza',
       price: 15,
       categoryId: 'fd6cdc40-58dc-41bc-b6a8-12e20501c941',
+      supplierId: '6d26c614-5cf6-46a1-9175-cd74cb43199e',
     },
     {
       id: '5d1836ff-e37b-427a-b48e-9931df24875a',
@@ -233,6 +296,7 @@ export const initialData: SeedData = {
       type: 'carnesf',
       price: 37,
       categoryId: '7d6dca98-65c8-4b34-8136-088511f74c7e',
+      supplierId: '0315ff9b-0b90-4802-a554-7002e41ed6e0',
     },
     {
       id: 'f7bec893-2864-47b5-875f-f1815562d6b0',
@@ -244,6 +308,7 @@ export const initialData: SeedData = {
       type: 'dulce',
       price: 15,
       categoryId: '9e9af2bf-f7a5-4082-8b86-7ffbba1c5a9a',
+      supplierId: 'aeff4dda-e9ad-498e-ae05-626ca7198e60',
     },
     {
       id: '008ad176-45f0-4c02-9e4f-0a95c54f38ab',
@@ -255,6 +320,7 @@ export const initialData: SeedData = {
       type: 'dulce',
       price: 10,
       categoryId: '9e9af2bf-f7a5-4082-8b86-7ffbba1c5a9a',
+      supplierId: 'aeff4dda-e9ad-498e-ae05-626ca7198e60',
     },
     {
       id: '0eb450f5-cbea-45a6-b103-47304d38a58d',
@@ -266,6 +332,7 @@ export const initialData: SeedData = {
       type: 'cerveza',
       price: 23,
       categoryId: '1ab40a8c-14ca-417a-867b-5f347070ab10',
+      supplierId: '951eb56e-e061-4181-b95e-80babf918e2c',
     },
     {
       id: 'bc82fee1-cf69-4ceb-8ea3-a11a26410362',
@@ -277,6 +344,7 @@ export const initialData: SeedData = {
       type: 'cerveza',
       price: 25,
       categoryId: '1ab40a8c-14ca-417a-867b-5f347070ab10',
+      supplierId: '951eb56e-e061-4181-b95e-80babf918e2c',
     },
     {
       id: '2eb05283-15fd-4830-a9e8-7dca64e6e4d4',
@@ -288,6 +356,7 @@ export const initialData: SeedData = {
       type: 'congelados',
       price: 28,
       categoryId: 'f9de6db5-b3da-41ca-8b10-ccda820b2b57',
+      supplierId: '8c2c2cc6-0b98-4fbe-a5d4-09d5e48aacd1',
     },
     {
       id: '13542e17-2d50-4614-8b4b-e8de79c8f93c',
@@ -299,6 +368,7 @@ export const initialData: SeedData = {
       type: 'congelados',
       price: 22,
       categoryId: 'f9de6db5-b3da-41ca-8b10-ccda820b2b57',
+      supplierId: '8c2c2cc6-0b98-4fbe-a5d4-09d5e48aacd1',
     },
     {
       id: '08006f14-71b6-45ac-bd26-ff18b65b9ba6',
@@ -310,6 +380,7 @@ export const initialData: SeedData = {
       type: 'higiene',
       price: 23,
       categoryId: 'b71a187b-3fa6-4b8d-90d7-d5a9cbb72288',
+      supplierId: '35b89291-9c08-4f70-a0e7-80fac3c0d366',
     },
     {
       id: 'db77038e-52db-4bb2-8571-6555e617c7ba',
@@ -321,6 +392,7 @@ export const initialData: SeedData = {
       type: 'higiene',
       price: 25,
       categoryId: 'b71a187b-3fa6-4b8d-90d7-d5a9cbb72288',
+      supplierId: 'd976c45e-febb-4245-953a-5b9bd7756132',
     },
     {
       id: '21466e86-f867-47a7-a064-47ee259c505d',
@@ -332,6 +404,7 @@ export const initialData: SeedData = {
       type: 'higiene',
       price: 70,
       categoryId: 'b71a187b-3fa6-4b8d-90d7-d5a9cbb72288',
+      supplierId: 'd976c45e-febb-4245-953a-5b9bd7756132',
     },
     {
       id: 'da76d15e-b3db-41b5-8dba-8d9034b998a1',
@@ -343,6 +416,7 @@ export const initialData: SeedData = {
       type: 'desayuno',
       price: 75,
       categoryId: 'bf8e792e-3d5d-47dc-bd1c-75d28389c31b',
+      supplierId: '493138f2-b02d-4fd1-9c07-b50cda8080a1',
     },
     {
       id: '7d58da36-ed84-417a-9f9d-12d746033b5d',
@@ -354,6 +428,7 @@ export const initialData: SeedData = {
       type: 'desayuno',
       price: 65,
       categoryId: 'bf8e792e-3d5d-47dc-bd1c-75d28389c31b',
+      supplierId: '8bdd7896-8af1-4664-8e05-f543ba014d5c',
     },
     {
       id: '53951995-2fd9-4862-a0fb-a6f9d24280ec',
@@ -365,6 +440,7 @@ export const initialData: SeedData = {
       type: 'desayuno',
       price: 48,
       categoryId: 'bf8e792e-3d5d-47dc-bd1c-75d28389c31b',
+      supplierId: '8bdd7896-8af1-4664-8e05-f543ba014d5c',
     },
     {
       id: '171c568c-4d5f-487f-b09c-7ce7c441a743',
@@ -376,6 +452,7 @@ export const initialData: SeedData = {
       type: 'mascotas',
       price: 125,
       categoryId: '476f58f2-c33b-4923-af65-7dd56fd63a04',
+      supplierId: 'd121efc4-7b61-4121-a9ab-072a60db7e3c',
     },
     {
       id: '7d0011cd-227e-4f58-a80b-e73c7a375cd2',
@@ -387,6 +464,7 @@ export const initialData: SeedData = {
       type: 'mascotas',
       price: 12,
       categoryId: '476f58f2-c33b-4923-af65-7dd56fd63a04',
+      supplierId: '98a45426-d0d6-497e-bc54-9821c9c4ada6',
     },
     {
       id: '17c601aa-4a95-4e5e-9fa0-d14d1e131d13',
@@ -398,6 +476,7 @@ export const initialData: SeedData = {
       type: 'enlatado',
       price: 21,
       categoryId: '4ccbb0d3-fc9e-4be5-aaad-2f52a5492a42',
+      supplierId: 'bb77028d-eefb-44c2-b82b-b18a5322c70c',
     },
     {
       id: '3f7f8445-359d-45ef-a917-3a5c955f65e7',
@@ -409,6 +488,7 @@ export const initialData: SeedData = {
       type: 'enlatado',
       price: 28,
       categoryId: '4ccbb0d3-fc9e-4be5-aaad-2f52a5492a42',
+      supplierId: 'ea29521c-fc2a-4cda-976c-bd992164e605',
     },
     {
       id: 'd4735203-688d-4f67-9bf2-6dcbc33aa2b9',
@@ -420,6 +500,7 @@ export const initialData: SeedData = {
       type: 'enlatado',
       price: 22,
       categoryId: '4ccbb0d3-fc9e-4be5-aaad-2f52a5492a42',
+      supplierId: 'ea29521c-fc2a-4cda-976c-bd992164e605',
     },
     {
       id: '854d6ab9-e0e3-4161-a90f-acd9dfd8faee',
@@ -431,6 +512,7 @@ export const initialData: SeedData = {
       type: 'semillas',
       price: 36,
       categoryId: '03b5749f-0eff-4729-a2d8-184506709740',
+      supplierId: 'fd18151d-d921-498d-8304-6c7cb8ddba9d',
     },
     {
       id: '66f78bf0-81ca-4e1c-b49d-7193ab525801',
@@ -442,6 +524,7 @@ export const initialData: SeedData = {
       type: 'semillas',
       price: 38,
       categoryId: '03b5749f-0eff-4729-a2d8-184506709740',
+      supplierId: 'fd18151d-d921-498d-8304-6c7cb8ddba9d',
     },
     {
       id: '0806a2e7-2e57-4839-be9f-b1c4ef788eff',
@@ -453,6 +536,7 @@ export const initialData: SeedData = {
       type: 'salsa',
       price: 14,
       categoryId: 'a8cf4ed7-389d-454e-bdc7-52e34d0ab297',
+      supplierId: '04805a3c-42c6-4a89-8531-ff8b09c71288',
     },
     {
       id: 'd1615c68-3bda-4ab5-b3f7-47700cb65eaf',
@@ -464,6 +548,7 @@ export const initialData: SeedData = {
       type: 'salsa',
       price: 16,
       categoryId: 'a8cf4ed7-389d-454e-bdc7-52e34d0ab297',
+      supplierId: '30f267f4-50fc-415a-9017-4cb73656b026',
     },
     {
       id: '43c20216-1f11-4cf2-ba51-112df9da2a8b',
@@ -475,6 +560,7 @@ export const initialData: SeedData = {
       type: 'condimento',
       price: 45,
       categoryId: 'a8cf4ed7-389d-454e-bdc7-52e34d0ab297',
+      supplierId: '3e48e16a-eb76-4b42-b045-2dc7078839a6',
     },
     {
       id: 'e97a1f63-fe46-4775-bf48-2d8ed5940d47',
@@ -486,6 +572,7 @@ export const initialData: SeedData = {
       type: 'farmacia',
       price: 18,
       categoryId: '77da7e8a-6e38-42b7-b508-f5fcb46c5979',
+      supplierId: 'cb82cd3f-3dcd-4ca8-bdc6-f5874b77b46f',
     },
     {
       id: '0be57cc0-c850-47b8-a5c8-9c63f493c7fd',
@@ -497,6 +584,7 @@ export const initialData: SeedData = {
       type: 'farmacia',
       price: 25,
       categoryId: '77da7e8a-6e38-42b7-b508-f5fcb46c5979',
+      supplierId: 'ff42e59a-a34d-4964-a432-65bb7e785ab4',
     },
     {
       id: '9033d753-88a8-456c-934c-4a51c7cbac22',
@@ -508,6 +596,7 @@ export const initialData: SeedData = {
       type: 'hogar',
       price: 12,
       categoryId: '619ee39e-a656-4c67-8dc5-fa8becbd7dd6',
+      supplierId: 'ea148b0a-c0bf-4bdf-992b-99987597d987',
     },
     {
       id: '6bff1ec7-ee52-4857-9675-58874f230f11',
@@ -519,6 +608,7 @@ export const initialData: SeedData = {
       type: 'hogar',
       price: 35,
       categoryId: '619ee39e-a656-4c67-8dc5-fa8becbd7dd6',
+      supplierId: '88fb7626-234a-44c2-a389-3507a10314c0',
     },
     {
       id: '329bde3a-f196-4faa-bfa8-dee56e78a65e',
@@ -530,6 +620,7 @@ export const initialData: SeedData = {
       type: 'hogar',
       price: 3,
       categoryId: '619ee39e-a656-4c67-8dc5-fa8becbd7dd6',
+      supplierId: '920385cb-8d45-426f-91b0-7cba650fb1ba',
     },
   ],
 };

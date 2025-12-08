@@ -22,7 +22,7 @@ export class AuthController {
   @Get('check-status')
   @Auth()
   checkAuthStatus(@GetUser() user: User) {
-    this.authService.checkAuthStatus(user);
+    return this.authService.checkAuthStatus(user);
   }
 
   //! Instalar Nodemailer para los siguientes enpoints

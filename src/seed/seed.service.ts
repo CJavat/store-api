@@ -13,6 +13,8 @@ export class SeedService {
 
     await this.inserUsers();
 
+    await this.insertSuppliers();
+
     await this.insertCategories();
 
     await this.insertProducts();
@@ -29,6 +31,7 @@ export class SeedService {
 
     await prisma.productImage.deleteMany();
     await prisma.product.deleteMany();
+    await prisma.supplier.deleteMany();
     await prisma.category.deleteMany();
 
     await prisma.userAddress.deleteMany();
@@ -58,6 +61,15 @@ export class SeedService {
     const seedCategories = initialData.categories;
     await prisma.category.createMany({
       data: seedCategories,
+    });
+
+    return;
+  }
+
+  private async insertSuppliers() {
+    const seedSuppliers = initialData.suppliers;
+    await prisma.supplier.createMany({
+      data: seedSuppliers,
     });
 
     return;

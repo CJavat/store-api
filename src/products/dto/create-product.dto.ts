@@ -46,4 +46,8 @@ export class CreateProductDto {
   @IsString()
   @IsUUID()
   categoryId: string;
+
+  @IsString()
+  @IsUUID()
+  supplierId: string;
 }

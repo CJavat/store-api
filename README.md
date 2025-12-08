@@ -46,11 +46,10 @@ Obtener las _API Keys_ [aquí.](https://console.cloudinary.com/app/c-2e56bf20620
  ├── users/           | (Terminado)
  ├── products/        | (Terminado)
  ├── categories/      | (Terminado)
- ├── inventory/       | 1
  ├── sales/           | 2
  ├── orders/          | 3
  ├── cash-register/   | 5
- ├── suppliers/       |
+ ├── suppliers/       | (Actual)
  ├── purchase-orders/ | 4
  ├── reports/         | 6
  |-- coupons/         | (Terminado)
